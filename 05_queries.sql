@@ -19,7 +19,6 @@ select * from Purchase
 -- View PurchaseDetail
 select * from PurchaseDetail
 
--- 1
 select 
   'Customer' + right(c.customer_id, patindex('%[1-9][0A-Z]%', reverse(c.customer_id))) as [ID],
   c.customer_name,
@@ -31,7 +30,6 @@ join SalesDetail sd on sd.sales_id = s.sales_id
 join Phone p on p.phone_id = sd.phone_id
 group by c.customer_id, c.customer_name, c.customer_gender
 
--- 2
 select 
   st.staff_id as [Staff ID],
   left(st.staff_name, charindex(' ', st.staff_name)) as [Name],
@@ -42,7 +40,6 @@ join Customer c on c.customer_id = sa.customer_id
 where st.staff_name like '% %'
 group by st.staff_id, st.staff_name
 
--- 3
 select 
   'Customer' + right(c.customer_id, 1) as [Customer ID],
   c.customer_name as [Customer Name],
@@ -63,7 +60,6 @@ where c.customer_name like '% %' and c.customer_id in (
 group by c.customer_id, c.customer_name, pb.brand_name
 order by c.customer_id
 
--- 4
 select 
   st.staff_id as [Staff ID],
   stuff(st.staff_email, charindex('@', st.staff_email) + 1, len(st.staff_email) - charindex('@', st.staff_email), 'Ymail.com') as [Email],
@@ -84,7 +80,6 @@ where st.staff_id in (
 group by st.staff_id, st.staff_email, pb.brand_name
 order by st.staff_id
 
--- 5
 select 
   s.staff_email as [Staff Email],
   s.staff_gender as [Staff Gender],
@@ -97,7 +92,6 @@ join (
 ) as asl on s.staff_salary > asl.average_salary
 where datediff(year, year(getdate()), s.staff_dob) >= 30
 
--- 6
 select 
   s.staff_id,
   s.staff_name, 
@@ -115,7 +109,6 @@ join (
 ) as ps on ps.staff_id = s.staff_id
 where ps.purchase_sum between 10000000 and 100000000
 
--- 7
 select 
   'Staff No' + right(s.staff_id, patindex('%[1-9][0A-Z]%', reverse(s.staff_id))) as [Staff No],
   s.staff_name,
@@ -140,5 +133,3 @@ where cc.customer_count = (
     group by s.staff_id
   ) as cc
 )
-
--- 8
